@@ -2,7 +2,7 @@
 // Variables and Logic
 
 // complie with Dev Command Prompt
-// cl/EHsc main.app to compile
+// cl/EHsc main.cpp to compile
 // main to run
 
 #include <iostream>
