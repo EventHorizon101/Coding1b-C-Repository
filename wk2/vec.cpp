@@ -1,5 +1,6 @@
 // Nate R. Coding 1 Spring 2026
 // Vectors
+// cl/EHsc vec.cpp to run
 
 #include <iostream>
 #include <string>
@@ -11,11 +12,13 @@ using namespace std;
 int main()
 {
     string input;
+    vector<string> favo = {"One", "Two", "Three"};
+    // vector<string>::iterator iter;
 
     do
     {
         cout << "\nWhat's the haps, Chum?\n";
-        cout << "Commands: push, find, quit\n";
+        cout << "Commands: push, find, remove, quit\n";
         getline(cin, input);
         cout << "\n";
 
@@ -50,54 +53,94 @@ int main()
         }
         else if(input == "find")
         {
-            vector<string> favs = {"One", "Two", "Three"};
-
-            vector<string>::iterator iter;
-
-            cout << "\nTake a look, Chum:\n";
-            for(int i = 0; i < favs.size(); i=i+1)
+            if(favo.size() != 0)
             {
-                cout << favs[i] << "\n";
-            }
+                // vector<string> favs = {"One", "Two", "Three"};
 
-            iter = favs.begin();
+                vector<string>::iterator iter;
 
-            cout << "iter points at " << *iter << ", Chum.\n";
-
-            iter += 1;
-
-            cout << "Now iter is pointing at " << *iter << ".\n";
-            cout << "\nPick a string to find, Chum!\n";
-            getline(cin, input);
-            
-            iter = find(favs.begin(), favs.end(), input);
-
-            if(iter != favs.end())
-            {
-                cout << "We've found " << *iter << "!\n";
-                cout << "Wanna change it, Chum? y/n\n";
-                getline(cin, input);
-                if(input == "y")
+                cout << "\nTake a look, Chum:\n";
+                for(int i = 0; i < favo.size(); i=i+1)
                 {
-                    cout << "What to, Chum?\n";
+                    cout << favo[i] << "\n";
+                }
+
+                iter = favo.begin();
+
+                cout << "iter points at " << *iter << ", Chum.\n";
+
+                iter += 1;
+
+                cout << "Now iter is pointing at " << *iter << ".\n";
+                cout << "\nPick a string to find, Chum!\n";
+                getline(cin, input);
+                
+                iter = find(favo.begin(), favo.end(), input);
+
+                if(iter != favo.end())
+                {
+                    cout << "We've found " << *iter << "!\n";
+                    cout << "Wanna change it, Chum? y/n\n";
                     getline(cin, input);
-
-                    *iter = input;
-
-                    cout << "\nHere's the new list, Chum:\n";
-                    for(int i = 0; i < favs.size(); i=i+1)
+                    if(input == "y")
                     {
-                        cout << favs[i] << "\n";
+                        cout << "What to, Chum?\n";
+                        getline(cin, input);
+
+                        *iter = input;
+
+                        cout << "\nHere's the new list, Chum:\n";
+                        for(int i = 0; i < favo.size(); i=i+1)
+                        {
+                            cout << favo[i] << "\n";
+                        }
+                    }
+                    else
+                    {
+                        cout << "You got it, Chum.\n";
                     }
                 }
                 else
                 {
-                    cout << "You got it, Chum.\n";
+                    cout << "No good, Chum.\n";
                 }
             }
             else
             {
-                cout << "No good, Chum.\n";
+                cout << "List's empty, Chum.\n";
+            }
+        }
+        else if(input == "remove")
+        {
+            if(favo.size() != 0)
+            {
+                // sort(favo.begin(), favo.end());
+                cout << "\nTake a look, Chum:\n";
+                for(int i = 0; i < favo.size(); i=i+1)
+                {
+                    cout << favo[i] << "\n";
+                }
+                cout << "\nRemove what, Chum?\n";
+                getline(cin, input);
+                auto iter = find(favo.begin(), favo.end(), input);
+
+                if(iter != favo.end())
+                {
+                    cout << "\nRemoving " << *iter << ", Chum! Here's the news:\n";
+                    favo.erase(iter);
+                    for(int i = 0; i < favo.size(); i=i+1)
+                    {
+                        cout << favo[i] << "\n";
+                    }
+                }
+                else
+                {
+                    cout << "No good, Chum.\n";
+                }
+            }
+            else
+            {
+                cout << "List's empty, Chum.\n";
             }
         }
         else if(input == "quit")

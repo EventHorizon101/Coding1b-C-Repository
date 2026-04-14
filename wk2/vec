@@ -1,0 +1,6 @@
+vec.cpp
+Microsoft (R) Incremental Linker Version 14.44.35222.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:vec.exe 
+vec.obj 
