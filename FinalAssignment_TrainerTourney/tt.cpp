@@ -55,18 +55,18 @@ public:
         currentHealth = maxHealth;
         strength = 3;
         defense = 0;
-        speed = 2;
+        speed = 0;
         critical = 1;
         hunger = 0;
     }
-    creature(int setMax, int setStrength, int setDefense, int setCrit)
+    creature(int setMax, int setStrength, int setDefense, int setSpeed, int setCrit)
     {
         name = randomName();
         maxHealth = setMax;
         currentHealth = maxHealth;
         strength = setStrength;
         defense = setDefense;
-        speed = 2;
+        speed = setSpeed;
         critical = setCrit;
         hunger = 0;
     }
@@ -160,6 +160,14 @@ public:
 
         cout << "\n";
         cout << "\n";
+
+        if(hunger > 10)
+        {
+            cout << name << " is hungry...";
+        }
+
+        cout << "\n";
+
         cout << name << " attacks " << target.getName() << "!";
 
         hungerOver = hungerOver - 10;
@@ -194,6 +202,8 @@ public:
 
         cout << "\n";
         cout << "Deals " << dmgTotal << " damage!";
+
+        hunger = hunger + 1;
     }
 
     bool checkDefeat()
@@ -276,6 +286,7 @@ void throwDown(creature& m, creature& e)
         else
         {
             advance(m);
+            return;
         }
     }
     else if(e.getSpd() > m.getSpd())
@@ -289,6 +300,7 @@ void throwDown(creature& m, creature& e)
         else
         {
             advance(m);
+            return;
         }
     }
     else
@@ -302,6 +314,7 @@ void throwDown(creature& m, creature& e)
         else
         {
             advance(m);
+            return;
         }
     }
     if(m.checkDefeat() == false && e.checkDefeat() == false)
@@ -312,6 +325,7 @@ void throwDown(creature& m, creature& e)
     else
     {
         advance(m);
+        return;
     }
 }
 void battleStart(creature& m)
@@ -320,43 +334,43 @@ void battleStart(creature& m)
 
     if(roundNum == 1)
     {
-        creature e;
+        creature e(1, 3, 0, 0, 1);
     }
     else if(roundNum == 2)
     {
-        creature e;
+        creature e(1, 3, 0, 0, 1);
     }
     else if(roundNum == 3)
     {
-        creature e;
+        creature e(1, 3, 0, 0, 1);
     }
     else if(roundNum == 4)
     {
-        creature e;
+        creature e(1, 3, 0, 0, 1);
     }
     else if(roundNum == 5)
     {
-        creature e;
+        creature e(1, 3, 0, 0, 1);
     }
     else if(roundNum == 6)
     {
-        creature e;
+        creature e(1, 3, 0, 0, 1);
     }
     else if(roundNum == 7)
     {
-        creature e;
+        creature e(1, 3, 0, 0, 1);
     }
     else if(roundNum == 8)
     {
-        creature e;
+        creature e(1, 3, 0, 0, 1);
     }
     else if(roundNum == 9)
     {
-        creature e;
+        creature e(1, 3, 0, 0, 1);
     }
     else if(roundNum == 10)
     {
-        creature e;
+        creature e(1, 3, 0, 0, 1);
     }
 
     cout << "\n\nBattle: " << roundNum << ", BEGIN!\n";
@@ -408,7 +422,7 @@ void actionUp(creature& m)
 {
     cout << "\nWhat would you like to do?\nOptions: 'health' (h), 'strength' (s), 'defense' (d), 'speed' (s), 'critical' (c), 'rest' (r), 'eat' (e), 'return'\n\n";
     getline(cin, input);
-    while(input != "health" && input != "h" && input != "strength" && input != "st" && input != "defense" && input != "d" && input != "speed" && input != "sp" && input != "critical" && input != "c" && input != "rest" && input != "eat" && input != "return")
+    while(input != "health" && input != "h" && input != "strength" && input != "st" && input != "defense" && input != "d" && input != "speed" && input != "sp" && input != "critical" && input != "c" && input != "rest" && input != "r" && input != "eat" && input != "e" && input != "return")
     {
         cout << "Sorry, Chum. I didn't quite get that.\nOptions: 'health' (h), 'strength' (st), 'defense' (d), 'speed' (sp), 'critical' (c), 'rest' (r), 'eat' (e), 'return'\n\n";
         getline(cin, input);
@@ -456,10 +470,10 @@ void actionUp(creature& m)
         actionNum = actionNum - 1;
         cout << "\nHunger reset!";
     }
-    else if(input == "return")
-    {
+    // else if(input == "return")
+    // {
         roundUp(m);
-    }
+    // }
 }
 
 void main()
