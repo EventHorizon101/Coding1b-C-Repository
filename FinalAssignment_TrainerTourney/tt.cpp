@@ -18,12 +18,16 @@ string input = "";
 
 string randomName()
 {
-    string line;
+    int lineNum = rand()%25+1;
+    string line = "null";
     ifstream readFile("names.txt");
 
     if(readFile.is_open())
     {
-        getline(readFile, line);
+        for(int i = 0; i < lineNum; i = i+ 1)
+        {
+            getline(readFile, line);
+        }
     }
     else
     {
@@ -62,6 +66,18 @@ public:
     creature(int setMax, int setStrength, int setDefense, int setSpeed, int setCrit)
     {
         name = randomName();
+        maxHealth = setMax;
+        currentHealth = maxHealth;
+        strength = setStrength;
+        defense = setDefense;
+        speed = setSpeed;
+        critical = setCrit;
+        hunger = 0;
+    }
+
+    void setStats(int setMax, int setStrength, int setDefense, int setSpeed, int setCrit)
+    {
+        // name = randomName();
         maxHealth = setMax;
         currentHealth = maxHealth;
         strength = setStrength;
@@ -249,18 +265,17 @@ void advance(creature& m)
 {
     if(m.checkDefeat() == true)
     {
-        cout << "\n\nYou lose! Sorry, Chum. You'll get 'em next time.";
-
+        cout << "\n\nYou lose! Sorry, Chum. You'll get 'em next time.\n";
     }
     else
     {
-        cout << "\nVictory! Onwards!\n";
+        cout << "\n\nVictory! Onwards!\n";
         roundNum = roundNum + 1;
         actionNum = 5;
 
         if(roundNum == 11)
         {
-            cout << "\n\nCONGRATULATIONS! YOU'RE THE CHAMP!\nFinal stats:";
+            cout << "\n\nCONGRATULATIONS! YOU'RE THE CHAMP!\n\nFinal stats:";
             m.showStats();
             return;
         }
@@ -321,6 +336,7 @@ void throwDown(creature& m, creature& e)
     {
         Sleep(750);
         throwDown(m, e);
+        return;
     }
     else
     {
@@ -332,46 +348,48 @@ void battleStart(creature& m)
 {
     creature e;
 
-    if(roundNum == 1)
-    {
-        creature e(1, 3, 0, 0, 1);
-    }
-    else if(roundNum == 2)
-    {
-        creature e(1, 3, 0, 0, 1);
-    }
-    else if(roundNum == 3)
-    {
-        creature e(1, 3, 0, 0, 1);
-    }
-    else if(roundNum == 4)
-    {
-        creature e(1, 3, 0, 0, 1);
-    }
-    else if(roundNum == 5)
-    {
-        creature e(1, 3, 0, 0, 1);
-    }
-    else if(roundNum == 6)
-    {
-        creature e(1, 3, 0, 0, 1);
-    }
-    else if(roundNum == 7)
-    {
-        creature e(1, 3, 0, 0, 1);
-    }
-    else if(roundNum == 8)
-    {
-        creature e(1, 3, 0, 0, 1);
-    }
-    else if(roundNum == 9)
-    {
-        creature e(1, 3, 0, 0, 1);
-    }
-    else if(roundNum == 10)
-    {
-        creature e(1, 3, 0, 0, 1);
-    }
+    e.setStats(5+(roundNum*5), 2+roundNum, roundNum-1, roundNum-1, roundNum/2);
+
+    // if(roundNum == 1)
+    // {
+    //     e.setStats(10, 3, 0, 0, 1);
+    // }
+    // else if(roundNum == 2)
+    // {
+    //     e.setStats(15, 3, 0, 0, 1);
+    // }
+    // else if(roundNum == 3)
+    // {
+    //     e.setStats(20, 3, 0, 0, 1);
+    // }
+    // else if(roundNum == 4)
+    // {
+    //     e.setStats(1, 3, 0, 0, 1);
+    // }
+    // else if(roundNum == 5)
+    // {
+    //     e.setStats(1, 3, 0, 0, 1);
+    // }
+    // else if(roundNum == 6)
+    // {
+    //     e.setStats(1, 3, 0, 0, 1);
+    // }
+    // else if(roundNum == 7)
+    // {
+    //     e.setStats(1, 3, 0, 0, 1);
+    // }
+    // else if(roundNum == 8)
+    // {
+    //     e.setStats(1, 3, 0, 0, 1);
+    // }
+    // else if(roundNum == 9)
+    // {
+    //     e.setStats(1, 3, 0, 0, 1);
+    // }
+    // else if(roundNum == 10)
+    // {
+    //     e.setStats(1, 3, 0, 0, 1);
+    // }
 
     cout << "\n\nBattle: " << roundNum << ", BEGIN!\n";
 
@@ -400,7 +418,7 @@ void roundUp(creature& m)
     getline(cin, input);
     while(input != "action" && input != "a" && input != "continue" && input != "tutorial")
     {
-        cout << "Sorry, Chum. I didn't quite get that.\nOptions: 'action', 'continue', 'tutorial'\n\n";
+        cout << "\nSorry, Chum. I didn't quite get that.\nOptions: 'action' ('a' for short), 'continue', 'tutorial'\n\n";
         getline(cin, input);
     }
 
@@ -420,11 +438,11 @@ void roundUp(creature& m)
 }
 void actionUp(creature& m)
 {
-    cout << "\nWhat would you like to do?\nOptions: 'health' (h), 'strength' (s), 'defense' (d), 'speed' (s), 'critical' (c), 'rest' (r), 'eat' (e), 'return'\n\n";
+    cout << "\nWhat would you like to do?\nOptions: 'health' (h), 'strength' (st), 'defense' (d), 'speed' (sp), 'critical' (c), 'rest' (r), 'eat' (e), 'return'\n\n";
     getline(cin, input);
     while(input != "health" && input != "h" && input != "strength" && input != "st" && input != "defense" && input != "d" && input != "speed" && input != "sp" && input != "critical" && input != "c" && input != "rest" && input != "r" && input != "eat" && input != "e" && input != "return")
     {
-        cout << "Sorry, Chum. I didn't quite get that.\nOptions: 'health' (h), 'strength' (st), 'defense' (d), 'speed' (sp), 'critical' (c), 'rest' (r), 'eat' (e), 'return'\n\n";
+        cout << "\nSorry, Chum. I didn't quite get that.\nOptions: 'health' (h), 'strength' (st), 'defense' (d), 'speed' (sp), 'critical' (c), 'rest' (r), 'eat' (e), 'return'\n\n";
         getline(cin, input);
     }
 
